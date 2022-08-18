@@ -61,5 +61,10 @@ contract SubscriptionManager {
         require(IERC20(sub.token).transferFrom(sub.payer, sub.receiver, sub.amount), 'transfer from failed');
         emit Payout(subscriptionId, sub.amount, sub.token);
     }
-
+    
+    function batchPayout(uint256[] memory subscriptionIds) public {
+        for(uint256 i; i < subscriptionIds.length; i++) {
+            payoutSubscription(subscriptionIds[i]);
+        }
+    }
 }
